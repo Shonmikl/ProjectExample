@@ -1,8 +1,8 @@
 package com.example.projectexample.entity;
 
 import com.example.projectexample.entity.enums.Position;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,26 +30,47 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "employees")
 @NoArgsConstructor
 public class Employee {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "sur_name")
     private String surName;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "salary")
     private double salary;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "position")
     private Position position;
-    private Set<Employee> subordinates;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private Department department;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(name, employee.name) && Objects.equals(surName, employee.surName) && Objects.equals(email, employee.email) && Objects.equals(phoneNumber, employee.phoneNumber);
+        return Objects.equals(name, employee.name)
+                && Objects.equals(surName, employee.surName)
+                && Objects.equals(email, employee.email)
+                && Objects.equals(phoneNumber, employee.phoneNumber);
     }
 
     @Override

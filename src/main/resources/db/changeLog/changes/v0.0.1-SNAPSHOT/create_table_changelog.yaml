@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      changes:
+
+        - createTable:
+            tableName: departments
+            columns:
+              - name: id
+                type: INTEGER
+                constraints:
+                  primary key: true
+                  nullable: false
+              - name: department_name
+                type: VARCHAR(255)
+                constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: employees
+            columns:
+              - name: id
+                type: INTEGER
+                constraints:
+                  primary key: true
+                  nullable: false
+              - name: name
+                type: VARCHAR(255)
+                constraints:
+                  nullable: false
+              - name: sur_name
+                type: VARCHAR(255)
+              - name: email
+                type: VARCHAR(255)
+              - name: phone_number
+                type: VARCHAR(255)
+              - name: salary
+                type: FLOAT
+              - name: position
+                type: VARCHAR(255)
+              - name: department_id
+                type: INTEGER
+                references:
+                  table: departments
+                  column: id

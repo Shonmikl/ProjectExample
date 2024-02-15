@@ -1,7 +1,7 @@
 package com.example.projectexample.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +12,20 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "departments")
 @NoArgsConstructor
 public class Department {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "department_name")
     private String departmentName;
+
+    @OneToMany(mappedBy = "department")
+    @JsonBackReference
     private Set<Employee> employees;
 
     @Override
