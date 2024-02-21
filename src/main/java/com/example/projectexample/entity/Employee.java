@@ -1,15 +1,11 @@
 package com.example.projectexample.entity;
 
-import com.example.projectexample.entity.enums.Position;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * -Аннотация @Entity. Класс, который представляет сущность,
@@ -53,10 +49,6 @@ public class Employee {
 
     @Column(name = "salary")
     private double salary;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "position")
-    private Position position;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id", referencedColumnName = "id")
