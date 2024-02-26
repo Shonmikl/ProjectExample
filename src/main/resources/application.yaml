@@ -26,7 +26,5 @@ spring:
           data-locations: classpath:db/data.sql
           mode: always
 
-
 server:
     port: 8080
-
